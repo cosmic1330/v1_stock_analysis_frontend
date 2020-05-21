@@ -19,3 +19,4 @@ const flied = [
     '現金殖利率(%)',
     '(4季)每股稅後淨利(EPS)(元)',
 ]
+export default flied;
