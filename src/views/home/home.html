@@ -1,0 +1,12 @@
+<div id="home">
+  <el-input
+    class="input"
+    placeholder="请输入内容"
+    v-model="searchValue">
+    <i slot="prefix" class="el-input__icon el-icon-search"></i>
+  </el-input>
+  <main>
+    <Table :flied="flied" :datas="data"></Table>
+  </main>
+  <!-- <KLine /> -->
+</div>
