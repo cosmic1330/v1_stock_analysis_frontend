@@ -28,9 +28,33 @@
     &.router-link-exact-active {
       color: #42b983;
     }
-    &:last-of-type{
+    &:last-of-type {
       margin: 0;
     }
   }
 }
 </style>
+
+
+<script>
+export default {
+  name: "App",
+  mounted: function() {
+    this.getToken();
+  },
+  computed: {
+    baseUrl: function() {
+      return this.$store.state.baseUrl;
+    }
+  },
+  methods: {
+    getToken() {
+      if (!localStorage.getItem("_token")) {
+        let data = `name=web&phone=0912345678`;
+        let url = `${this.baseUrl}/Token/getToken`;
+        this.$store.dispatch("login", { url, data });
+      }
+    }
+  }
+};
+</script>
