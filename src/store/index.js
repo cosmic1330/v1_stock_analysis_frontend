@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import List from './list'
+import Stock from './stock.json'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        baseUrl: process.env.VUE_APP_SECRET,
-        data: '',
-        token: '',
-        list: List,
+        stock: Stock,
     },
     getters: {
         code: state => {
@@ -108,7 +105,7 @@ export default new Vuex.Store({
                             .replace(');', '')
                         mutations.commit(mutation, JSON.parse(str))
                     } else {
-                        alert(xhr.status)
+                        console.log(xhr.responseText)
                     }
                 }
             }

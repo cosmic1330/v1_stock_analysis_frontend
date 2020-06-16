@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">選股</router-link>
       <router-link to="/about">買在最低點</router-link>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
