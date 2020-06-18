@@ -40,7 +40,6 @@
 export default {
   name: "App",
   mounted: function() {
-    this.getToken();
   },
   computed: {
     baseUrl: function() {
