@@ -5,6 +5,7 @@
 // @ is an alias to /src
 import "./home.scss";
 import Tpe from "../../components/tpe/tpe";
+import Stock from "../../components/stock/stock";
 
 export default {
   name: "Home",
@@ -15,9 +16,13 @@ export default {
     };
   },
   components: {
-    Tpe
+    Tpe,
+    Stock
   },
   computed: {
+    list:function(){
+      return Object.keys(this.$store.state.stock);
+    }
   },
   methods: {
     getData(data) {

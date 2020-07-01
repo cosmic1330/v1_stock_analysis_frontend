@@ -1,27 +1,35 @@
 <div id="tpe">
-  
     <main>
-        <ul>
-            <li>加權指數下跌警示: {{Analysis?'正常':'警告'}}</li>
-            <li>成交量: {{DealStatus[0]?'增加':'減少'}}</li>
-            <li>
-                近五日成交量：
-                <p>
-                    {{DealStatus[1]}}
-                </p>
-                <p>
-                    {{DealStatus[2]}}
-                </p>
-                <p>
-                    {{DealStatus[3]}}
-                </p>
-                <p>
-                    {{DealStatus[4]}}
-                </p>
-                <p>
-                    {{DealStatus[5]}}
-                </p>
-            </li>
-        </ul>
+        <table>
+            <tr>
+                <td>加權指數下跌警示</td>
+                <td>{{ Analysis ? '正常' : '警告' }}</td>
+            </tr>
+            <tr>
+                <td>成交量</td>
+                <td>{{ DealStatus[0] ? '增加' : '減少' }}</td>
+            </tr>
+            <tr>
+                <td>近五日成交量</td>
+                <td>
+                    <p>
+                        {{ DealStatus[1] }}
+                    </p>
+                    <p>
+                        {{ DealStatus[2] }}
+                    </p>
+                    <p>
+                        {{ DealStatus[3] }}
+                    </p>
+                    <p>
+                        {{ DealStatus[4] }}
+                    </p>
+                    <p>
+                        {{ DealStatus[5] }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+
     </main>
 </div>
