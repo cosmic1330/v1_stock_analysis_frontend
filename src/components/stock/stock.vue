@@ -5,20 +5,33 @@
 // @ is an alias to /src
 import "./stock.scss";
 import Macd from "../../components/stock/macd/macd";
+import Ma from "../../components/stock/ma/ma";
+import Rsi from "../../components/stock/rsi/rsi";
 
 export default {
   name: "STOCK",
-  props:['stockId'],
+  props: ["stockId"],
   mounted: function() {
     this.getData(this.stockId);
   },
   data() {
     return {
-      value:null
+      value: null,
+      beforeDate: 0
     };
   },
-  components: {Macd},
-  computed: {},
+  components: { Macd, Ma, Rsi },
+  computed: {
+    stockValue:function(){
+      if(this.value){
+        let data = JSON.stringify(this.value);
+        data = JSON.parse(data);
+        data.splice(this.value.length - this.beforeDate,this.beforeDate);
+        return data;
+      }
+      return null;
+    }
+  },
   methods: {
     getData(data) {
       let url = `${process.env.VUE_APP_SECRET}/stock/getOneStockData/${data}`;
@@ -30,13 +43,8 @@ export default {
               "jQuery111306382856220483186_1591513211276(",
               ""
             );
-            str =str.replace(
-              ");",
-              ""
-            );
-
+            str = str.replace(");", "");
             this.value = JSON.parse(str).ta; // 每天股價含最高,最低,開收盤
-          
           } else {
             console.log(data);
           }
@@ -44,7 +52,7 @@ export default {
       };
       xhr.open("get", url, true);
       xhr.send(null);
-    },
+    }
   },
   watch: {}
 };

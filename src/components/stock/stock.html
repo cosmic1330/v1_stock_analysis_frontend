@@ -4,10 +4,14 @@
             <tr>
                 <td>股票編號</td>
                 <td>MACD</td>
+                <td>MA / 成交量</td>
+                <td>RSI</td>
             </tr>
             <tr>
                 <td>{{stockId}}</td>
-                <td><Macd :stock-value="value"/></td>
+                <td><Macd :stock-value="stockValue"/></td>
+                <td><Ma :stock-value="stockValue"/></td>
+                <td><Rsi :stock-value="stockValue"/></td>
             </tr>
         </table>
     </main>
