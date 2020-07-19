@@ -17,24 +17,30 @@ export default {
     ma_trading: function() {
       let response = [false, false];
       if (this.stockValue) {
-        console.log('ma')
+        // console.log('ma')
         let value = JSON.stringify(this.stockValue);
         value = JSON.parse(value);
-        let today = value[value.length-1];
-        let ma5 = this.getMa5(value);
-        ma5 = ma5.reverse();
-        let ma20 = this.getMa20(value);
-        ma20 = ma20.reverse();
+        let today = value[value.length - 1];
+        let yesterday = value[value.length - 2];
+
+        // let ma5 = this.getMa5(value);
+        // ma5 = ma5.reverse();
+        // let ma20 = this.getMa20(value);
+        // ma20 = ma20.reverse();
         let tradingVolume = this.tradingVolume(value);
-        // 判斷 
-        // 1. 股價介於ma5及ma20之間，或 股價距離ma5小於2%的距離
-        // 2. 今日交易量大於5天的平均交易量和成交量成長五倍
-        if((ma5[0]<today.c && ma20[0]>today.c) || (ma5[0]>ma20[0] && Math.abs( (today.c-ma5[0]) / ma5[0]*100)<2)){
+        // 判斷
+        // 1. 今日交易量大於平均交易量和成交量大於1000張
+        // 2. ma黃金交叉
+        if (
+          today.v > 1000 &&
+          (today.v > tradingVolume ||
+          yesterday.v > tradingVolume)
+        ) {
           response[0] = true;
         }
-        if(today.v>tradingVolume*5 && today.v > 1000){
-          response[1] = true;
-        }
+        // if (ma5[0] > ma20[0] && (ma5[1] < ma20[1] || ma5[2] < ma20[2])) {
+        //   response[1] = true;
+        // }
       }
       return response;
     }
@@ -88,10 +94,10 @@ export default {
     tradingVolume(value) {
       let aa = value.reverse();
       let arr = 0;
-      for (let i = 1; i < 30; i++) {
+      for (let i = 1; i < 45; i++) {
         arr = arr + aa[i].v;
       }
-      let response = arr / 30;
+      let response = arr / 45;
       // console.log(response);
       return response; // 交易量
     }

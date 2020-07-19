@@ -7,6 +7,7 @@ import "./stock.scss";
 import Macd from "../../components/stock/macd/macd";
 import Ma from "../../components/stock/ma/ma";
 import Rsi from "../../components/stock/rsi/rsi";
+import Kd from "../../components/stock/kd/kd";
 
 export default {
   name: "STOCK",
@@ -20,13 +21,14 @@ export default {
       beforeDate: 0
     };
   },
-  components: { Macd, Ma, Rsi },
+  components: { Macd, Ma, Rsi, Kd },
   computed: {
     stockValue:function(){
       if(this.value){
         let data = JSON.stringify(this.value);
         data = JSON.parse(data);
         data.splice(this.value.length - this.beforeDate,this.beforeDate);
+        console.log( data[data.length-1].t);
         return data;
       }
       return null;

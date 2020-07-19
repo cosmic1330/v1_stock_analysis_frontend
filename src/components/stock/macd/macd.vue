@@ -17,7 +17,7 @@ export default {
     dif: function() {
       let data = [false, false];
       if (this.stockValue) {
-        console.log("macd");
+        // console.log("macd");
         let value = JSON.stringify(this.stockValue);
         value = JSON.parse(value);
         let ma12 = this.getMa12(value);
@@ -26,7 +26,6 @@ export default {
         let dif = this.getDif(ma12, ma26);
         // 取得MACD
         let macd = this.getDif9(dif);
-        // 判斷
         let response = [];
         for (let i = 0; i < dif.length; i++) {
           let value = dif[i] - macd[i];
@@ -37,14 +36,17 @@ export default {
         // console.log("macd", macd);
         // console.log("相差", response);
 
+        // 判斷
+        // 1. 趨勢翻轉
+        // 2. MACD近三天有黃金交叉 
         if (
-          (response[0] < 0.01 && response[0] > -0.01) ||
-          (response[1] < 0.01 && response[1] > -0.01)
+          ((response[0] < 0.01 && response[0] > -0.01) ||
+          (response[1] < 0.01 && response[1] > -0.01)) 
         ) {
           data[0] = true;
         }
 
-        if (dif[0] > macd[0] && (dif[1] < macd[1] || dif[2] < macd[2])) {
+        if (dif[0] > macd[0] && ((dif[1] < macd[1])||(dif[2] < macd[2]))) {
           data[1] = true;
         }
       }
