@@ -1,4 +1,3 @@
-
 <template src="./rsi.html"></template>
 
 <script>
@@ -8,13 +7,13 @@ import "./rsi.scss";
 export default {
   name: "Rsi",
   props: ["stockValue"],
-  mounted: function() {},
+  mounted: function () {},
   data() {
     return {};
   },
   components: {},
   computed: {
-    res: function() {
+    res: function () {
       let response = [false, false];
       if (this.stockValue) {
         // console.log("rsi");
@@ -30,15 +29,15 @@ export default {
         }
       }
       return response;
-    }
+    },
   },
   methods: {
     rsi6(value) {
       let response = [];
       for (let i = 7; i < value.length; i++) {
         // 方法一
-        let UP = this.get6UP(value,i);
-        let DN = this.get6DN(value,i);
+        let UP = this.get6UP(value, i);
+        let DN = this.get6DN(value, i);
 
         // 方法二
         // let UP = (5/6) * beforeUP + Math.abs(value[i].h - value[i-1].h);
@@ -71,9 +70,9 @@ export default {
         value[i - 2].c - value[i - 3].c,
         value[i - 3].c - value[i - 4].c,
         value[i - 4].c - value[i - 5].c,
-        value[i - 5].c - value[i - 6].c
+        value[i - 5].c - value[i - 6].c,
       ];
-      arr.forEach(element => {
+      arr.forEach((element) => {
         if (element > 0) {
           rise = rise + element;
         }
@@ -89,9 +88,9 @@ export default {
         value[i - 2].c - value[i - 3].c,
         value[i - 3].c - value[i - 4].c,
         value[i - 4].c - value[i - 5].c,
-        value[i - 5].c - value[i - 6].c
+        value[i - 5].c - value[i - 6].c,
       ];
-      arr.forEach(element => {
+      arr.forEach((element) => {
         if (element < 0) {
           fall = fall + element;
         }
@@ -113,9 +112,9 @@ export default {
         value[i - 8].c - value[i - 9].c,
         value[i - 9].c - value[i - 10].c,
         value[i - 10].c - value[i - 11].c,
-        value[i - 11].c - value[i - 12].c
+        value[i - 11].c - value[i - 12].c,
       ];
-      arr.forEach(element => {
+      arr.forEach((element) => {
         if (element > 0) {
           rise = rise + element;
         }
@@ -137,17 +136,17 @@ export default {
         value[i - 8].c - value[i - 9].c,
         value[i - 9].c - value[i - 10].c,
         value[i - 10].c - value[i - 11].c,
-        value[i - 11].c - value[i - 12].c
+        value[i - 11].c - value[i - 12].c,
       ];
-      arr.forEach(element => {
+      arr.forEach((element) => {
         if (element < 0) {
           fall = fall + element;
         }
       });
       let DN = fall * -1;
       return DN;
-    }
+    },
   },
-  watch: {}
+  watch: {},
 };
 </script>

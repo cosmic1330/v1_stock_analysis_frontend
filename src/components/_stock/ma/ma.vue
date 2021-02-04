@@ -1,4 +1,3 @@
-
 <template src="./ma.html"></template>
 
 <script>
@@ -8,13 +7,13 @@ import "./ma.scss";
 export default {
   name: "Ma",
   props: ["stockValue"],
-  mounted: function() {},
+  mounted: function () {},
   data() {
     return {};
   },
   components: {},
   computed: {
-    ma_trading: function() {
+    ma_trading: function () {
       let response = [false, false];
       if (this.stockValue) {
         // console.log('ma')
@@ -33,8 +32,7 @@ export default {
         // 2. ma黃金交叉
         if (
           today.v > 1000 &&
-          (today.v > tradingVolume ||
-          yesterday.v > tradingVolume)
+          (today.v > tradingVolume || yesterday.v > tradingVolume)
         ) {
           response[0] = true;
         }
@@ -43,7 +41,7 @@ export default {
         // }
       }
       return response;
-    }
+    },
   },
   methods: {
     getMa5(value) {
@@ -100,8 +98,8 @@ export default {
       let response = arr / 45;
       // console.log(response);
       return response; // 交易量
-    }
+    },
   },
-  watch: {}
+  watch: {},
 };
 </script>

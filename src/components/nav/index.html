@@ -1,0 +1,12 @@
+<div id="NAV">
+  <el-header>
+    <el-button @click="drawer = true" type="primary" style="margin-left: 16px">
+      点我打开
+    </el-button>
+  </el-header>
+
+  <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false">
+    <router-link to="/">選股</router-link>
+    <router-link to="/about">買在最低點</router-link>
+  </el-drawer>
+</div>

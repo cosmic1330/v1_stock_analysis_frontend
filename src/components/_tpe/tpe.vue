@@ -1,4 +1,3 @@
-
 <template src="./tpe.html"></template>
 
 <script>
@@ -7,12 +6,12 @@ import "./tpe.scss";
 
 export default {
   name: "Tpe",
-  mounted: function() {
+  mounted: function () {
     this.getTPEData();
   },
   data() {
     return {
-      TPEData: []
+      TPEData: [],
     };
   },
   components: {},
@@ -96,7 +95,7 @@ export default {
       let day = this.TPEHeightData.indexOf(`${this.MaxHeightPrice}`);
       // 檢查大跌的時間點是否發生在最高價後五天
       let in5day = false;
-      list.forEach(element => {
+      list.forEach((element) => {
         if (element < day + 5 && element > day) {
           in5day = true;
         }
@@ -104,7 +103,7 @@ export default {
 
       let value =
         ((this.MaxHeightPrice - this.MinLowPrice) / this.MaxHeightPrice) * 100; // 最高最低差
-      // 分析： 最高最低價差 > 8% 且沒有發生在最高價5天內，回傳 false; 
+      // 分析： 最高最低價差 > 8% 且沒有發生在最高價5天內，回傳 false;
       if (value > 8 && !in5day) return 0;
       else return 1;
     },
@@ -145,19 +144,19 @@ export default {
           this.TPEDealData[26],
           this.TPEDealData[27],
           this.TPEDealData[28],
-          this.TPEDealData[29]
+          this.TPEDealData[29],
         ];
-      }else{
+      } else {
         return [
           0,
           this.TPEDealData[25],
           this.TPEDealData[26],
           this.TPEDealData[27],
           this.TPEDealData[28],
-          this.TPEDealData[29]
+          this.TPEDealData[29],
         ];
       }
-    }
+    },
   },
   methods: {
     getTPEData() {
@@ -175,8 +174,8 @@ export default {
       };
       xhr.open("get", url, true);
       xhr.send(null);
-    }
+    },
   },
-  watch: {}
+  watch: {},
 };
 </script>

@@ -1,4 +1,3 @@
-
 <template src="./kd.html"></template>
 
 <script>
@@ -8,20 +7,19 @@ import "./kd.scss";
 export default {
   name: "Kd",
   props: ["stockValue"],
-  mounted: function() {},
+  mounted: function () {},
   data() {
     return {};
   },
   components: {},
   computed: {
-    kd: function() {
+    kd: function () {
       let response = false;
       if (this.stockValue) {
         // console.log("kd");
         let value = JSON.stringify(this.stockValue);
         value = JSON.parse(value);
         let data = this.getKD(value);
-        
 
         // 判斷
         // 1. 黃金交叉
@@ -31,16 +29,16 @@ export default {
         // ) {
         //   response = true;
         // }
-        
+
         // 2. 價格高於dif
         let today = value[value.length - 1];
         let yesterday = value[value.length - 1];
-        if(today.c<data[0][0] && yesterday > data[0][1]){
+        if (today.c < data[0][0] && yesterday > data[0][1]) {
           response = true;
         }
       }
       return response;
-    }
+    },
   },
   methods: {
     getKD(value) {
@@ -58,7 +56,7 @@ export default {
           value[i - 5].h,
           value[i - 6].h,
           value[i - 7].h,
-          value[i - 8].h
+          value[i - 8].h,
         ]);
         let min = this.filterMin([
           value[i].l,
@@ -69,7 +67,7 @@ export default {
           value[i - 5].l,
           value[i - 6].l,
           value[i - 7].l,
-          value[i - 8].l
+          value[i - 8].l,
         ]);
         let RSV = ((value[i].c - min) / (max - min)) * 100;
         let K = (2 / 3) * beforeK + (1 / 3) * RSV;
@@ -110,7 +108,7 @@ export default {
         value[i - 5].c,
         value[i - 6].c,
         value[i - 7].c,
-        value[i - 8].c
+        value[i - 8].c,
       ]);
       let min = this.filterMin([
         value[i].c,
@@ -121,13 +119,13 @@ export default {
         value[i - 5].c,
         value[i - 6].c,
         value[i - 7].c,
-        value[i - 8].c
+        value[i - 8].c,
       ]);
       let RSV = ((value[i].c - min) / (max - min)) * 100;
       let K = (1 / 3) * RSV + (2 / 3) * 50;
       return K;
-    }
+    },
   },
-  watch: {}
+  watch: {},
 };
 </script>

@@ -1,0 +1,26 @@
+#tpe {
+  margin-bottom: 10px;
+  main {
+    width: 100%;
+    table {
+      width: 100%;
+      tr {
+        td {
+          padding: 10px;
+          border: 1px solid #000;
+          &:first-of-type {
+            background: #afa;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  #tpe {
+    main {
+      width: 50%;
+      margin: auto;
+    }
+  }
+}
