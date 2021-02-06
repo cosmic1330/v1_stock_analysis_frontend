@@ -3,15 +3,15 @@ import { base, cors } from './https';
 // ------------------------------------------server--------------------------------------------------
 // 取得最後交易日
 export const Get_Last_Date = () =>
-    base({ method: 'get', url: '/date/getLastDate' });
+    base({ method: 'get', url: '/Date/getLastDate' });
 
 // 取得符合本益比的股票
 export const Get_Per_Stock = () =>
-    base({ method: 'get', url: '/bwi/getCommon' });
+    base({ method: 'get', url: '/BWI/getCommon' });
 
 // 取得法人買超的股票
 export const Get_Corporations_Stock = () =>
-    base({ method: 'get', url: '/corporations/getCorporationsBuyTreeDays' });
+    base({ method: 'get', url: '/Corporations/getCorporationsBuyTreeDays' });
 
 // -------------------------------------------cors--------------------------------------------------
 // 取得yahoo股價
