@@ -17,7 +17,7 @@ export default {
   },
   components: {
     PER,
-    Corporations
+    Corporations,
   },
   computed: {},
   methods: {},

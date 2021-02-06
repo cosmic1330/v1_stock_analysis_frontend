@@ -1,32 +1,23 @@
 <template>
   <div id="PER">
-    <el-tooltip class="item" effect="dark" :content="requirement" placement="bottom-start">
+    <el-tooltip
+      class="item"
+      effect="dark"
+      :content="requirement"
+      placement="bottom-start"
+    >
       <el-badge :value="stock.length" type="primary">
         <span id="filterResult">塞選結果</span>
       </el-badge>
     </el-tooltip>
     <article class="area1">
-      <el-table
-      :data="stock"
-      style="width: 100%">
-      <el-table-column
-        prop="code"
-        label="股票代號"
-        width="100">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名">
-      </el-table-column>
-      <el-table-column
-        prop="PER"
-        label="本益比">
-      </el-table-column>
-      <el-table-column
-        prop="yield"
-        label="殖利率">
-      </el-table-column>
-    </el-table>
+      <el-table :data="stock" style="width: 100%">
+        <el-table-column prop="code" label="股票代號" width="100">
+        </el-table-column>
+        <el-table-column prop="name" label="姓名"> </el-table-column>
+        <el-table-column prop="PER" label="本益比"> </el-table-column>
+        <el-table-column prop="yield" label="殖利率"> </el-table-column>
+      </el-table>
     </article>
     <el-divider></el-divider>
   </div>
@@ -41,7 +32,7 @@ export default {
     this.getFilterPerData();
   },
   data: () => ({
-    requirement:'',
+    requirement: '',
     stock: [],
   }),
   methods: {
