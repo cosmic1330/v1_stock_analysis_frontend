@@ -5,17 +5,17 @@
 import './style.scss';
 
 export default {
-  name: 'Tab',
-  props: ['dbDate'],
-  mounted: function () {},
-  data() {
-    return {
-      drawer: false,
-    };
-  },
-  components: {},
-  computed: {},
-  methods: {},
-  watch: {},
+    name: 'Tab',
+    props: ['dbDate'],
+    mounted: function () {},
+    data() {
+        return {
+            drawer: false,
+        };
+    },
+    components: {},
+    computed: {},
+    methods: {},
+    watch: {},
 };
 </script>

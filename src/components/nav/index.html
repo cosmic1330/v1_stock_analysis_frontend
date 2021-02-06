@@ -1,22 +1,22 @@
 <div id="Nav">
-  <el-header>
-    <el-button @click="drawer = true" type="primary">
-      <i class="el-icon-menu"></i>
-    </el-button>
-  </el-header>
+    <el-header>
+        <el-button @click="drawer = true" type="primary">
+            <i class="el-icon-menu"></i>
+        </el-button>
+    </el-header>
 
-  <el-drawer title="" :visible.sync="drawer" :with-header="true" size="350px">
-    <ul>
-      <router-link to="/">
-        <li>選股</li>
-      </router-link>
-      <router-link to="/self">
-        <li>我追蹤的股票</li>
-      </router-link>
-      <router-link to="/check">
-        <li>資料檢查</li>
-      </router-link>
-    </ul>
-    <p id="databaseTime">資料庫最後時間：{{dbDate}}</p>
-  </el-drawer>
+    <el-drawer title="" :visible.sync="drawer" :with-header="true" size="350px">
+        <ul>
+            <router-link to="/">
+                <li>選股</li>
+            </router-link>
+            <router-link to="/self">
+                <li>我追蹤的股票</li>
+            </router-link>
+            <router-link to="/check">
+                <li>資料檢查</li>
+            </router-link>
+        </ul>
+        <p id="databaseTime">資料庫最後時間：{{dbDate}}</p>
+    </el-drawer>
 </div>
