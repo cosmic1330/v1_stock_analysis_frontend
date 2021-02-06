@@ -2,14 +2,14 @@
 
 <script>
 // @ is an alias to /src
-import "./style.scss";
-import Tab from "../../components/tab/script";
-import Stock from "../../utils/stockClass.js";
+import './style.scss';
+import Tab from '../../components/tab/script';
+import Stock from '../../utils/stockClass.js';
 
 export default {
-  name: "Home",
+  name: 'Home',
   mounted: function () {
-    this.getData();
+    // this.getData();
     let a = new Stock();
     a.getter();
   },
@@ -28,10 +28,10 @@ export default {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             let str = xhr.responseText.replace(
-              "jQuery111306382856220483186_1591513211276(",
-              ""
+              'jQuery111306382856220483186_1591513211276(',
+              '',
             );
-            str = str.replace(");", "");
+            str = str.replace(');', '');
             str = JSON.parse(str);
             console.log(str);
           } else {
@@ -39,7 +39,7 @@ export default {
           }
         }
       };
-      xhr.open("get", url, true);
+      xhr.open('get', url, true);
       xhr.send(null);
     },
   },

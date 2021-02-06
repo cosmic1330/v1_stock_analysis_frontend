@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import "./macd.scss";
+import './macd.scss';
 
 export default {
-  name: "Macd",
-  props: ["stockValue"],
+  name: 'Macd',
+  props: ['stockValue'],
   mounted: function () {},
   data() {
     return {};
@@ -16,7 +16,7 @@ export default {
     dif: function () {
       let data = [false, false];
       if (this.stockValue) {
-        console.log("macd");
+        console.log('macd');
         let value = JSON.stringify(this.stockValue);
         value = JSON.parse(value);
         let ma12 = this.getMa12(value);
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getDI(value) {
-      let arr = value.map((element) => {
+      let arr = value.map(element => {
         return (element.h + element.l + 2 * element.c) / 4;
       });
       return arr;
@@ -81,7 +81,7 @@ export default {
         const element = (arr[i] * 10 + DI[i + 11] * 2) / 12;
         arr.push(element);
       }
-      console.log("ma12", arr);
+      console.log('ma12', arr);
       return arr; // ma12值
     },
     getMa26(value) {

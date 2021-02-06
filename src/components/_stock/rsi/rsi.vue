@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import "./rsi.scss";
+import './rsi.scss';
 
 export default {
-  name: "Rsi",
-  props: ["stockValue"],
+  name: 'Rsi',
+  props: ['stockValue'],
   mounted: function () {},
   data() {
     return {};
@@ -72,7 +72,7 @@ export default {
         value[i - 4].c - value[i - 5].c,
         value[i - 5].c - value[i - 6].c,
       ];
-      arr.forEach((element) => {
+      arr.forEach(element => {
         if (element > 0) {
           rise = rise + element;
         }
@@ -90,7 +90,7 @@ export default {
         value[i - 4].c - value[i - 5].c,
         value[i - 5].c - value[i - 6].c,
       ];
-      arr.forEach((element) => {
+      arr.forEach(element => {
         if (element < 0) {
           fall = fall + element;
         }
@@ -114,7 +114,7 @@ export default {
         value[i - 10].c - value[i - 11].c,
         value[i - 11].c - value[i - 12].c,
       ];
-      arr.forEach((element) => {
+      arr.forEach(element => {
         if (element > 0) {
           rise = rise + element;
         }
@@ -138,7 +138,7 @@ export default {
         value[i - 10].c - value[i - 11].c,
         value[i - 11].c - value[i - 12].c,
       ];
-      arr.forEach((element) => {
+      arr.forEach(element => {
         if (element < 0) {
           fall = fall + element;
         }

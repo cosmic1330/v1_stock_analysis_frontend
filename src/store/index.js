@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import Stock from "./stock.json";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Stock from './stock.json';
 
 Vue.use(Vuex);
 
@@ -9,12 +9,12 @@ export default new Vuex.Store({
     stock: Stock,
   },
   getters: {
-    code: (state) => {
+    code: state => {
       if (state.list) {
         return Object.keys(state.list);
       }
     },
-    ma5: (state) => {
+    ma5: state => {
       if (state.data) {
         let arr = [];
         for (let i = 4; i < state.data.ta.length; i++) {
@@ -30,7 +30,7 @@ export default new Vuex.Store({
         return arr;
       }
     },
-    ma10: (state) => {
+    ma10: state => {
       if (state.data) {
         let arr = [];
         for (let i = 9; i < state.data.ta.length; i++) {
@@ -51,7 +51,7 @@ export default new Vuex.Store({
         return arr;
       }
     },
-    ma20: (state) => {
+    ma20: state => {
       if (state.data) {
         let arr = [];
         for (let i = 0; i < 15; i++) {
@@ -101,18 +101,18 @@ export default new Vuex.Store({
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             let str = xhr.responseText
-              .replace("jQuery111306382856220483186_1591513211276(", "")
-              .replace(");", "");
+              .replace('jQuery111306382856220483186_1591513211276(', '')
+              .replace(');', '');
             mutations.commit(mutation, JSON.parse(str));
           } else {
             console.log(xhr.responseText);
           }
         }
       };
-      xhr.open("get", url, true);
+      xhr.open('get', url, true);
       xhr.setRequestHeader(
-        "Authorization",
-        `Bearer ${localStorage.getItem("_token")}`
+        'Authorization',
+        `Bearer ${localStorage.getItem('_token')}`,
       );
       xhr.send(null);
     },
@@ -127,11 +127,11 @@ export default new Vuex.Store({
           alert(xhr.status);
         }
       };
-      xhr.open("Post", url, true);
-      xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+      xhr.open('Post', url, true);
+      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
       xhr.setRequestHeader(
-        "Authorization",
-        `Bearer ${localStorage.getItem("_token")}`
+        'Authorization',
+        `Bearer ${localStorage.getItem('_token')}`,
       );
       xhr.send(data);
     },
@@ -141,13 +141,13 @@ export default new Vuex.Store({
       let xhr = new XMLHttpRequest();
       xhr.onload = function () {
         if (xhr.status == 200) {
-          localStorage.setItem("_token", xhr.responseText);
+          localStorage.setItem('_token', xhr.responseText);
         } else {
           alert(xhr.status);
         }
       };
-      xhr.open("Post", url, true);
-      xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+      xhr.open('Post', url, true);
+      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
       xhr.send(data);
     },
   },

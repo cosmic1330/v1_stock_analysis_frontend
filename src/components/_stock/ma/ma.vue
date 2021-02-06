@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import "./ma.scss";
+import './ma.scss';
 
 export default {
-  name: "Ma",
-  props: ["stockValue"],
+  name: 'Ma',
+  props: ['stockValue'],
   mounted: function () {},
   data() {
     return {};

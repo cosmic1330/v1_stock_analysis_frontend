@@ -2,10 +2,10 @@
 
 <script>
 // @ is an alias to /src
-import "./tpe.scss";
+import './tpe.scss';
 
 export default {
-  name: "Tpe",
+  name: 'Tpe',
   mounted: function () {
     this.getTPEData();
   },
@@ -95,7 +95,7 @@ export default {
       let day = this.TPEHeightData.indexOf(`${this.MaxHeightPrice}`);
       // 檢查大跌的時間點是否發生在最高價後五天
       let in5day = false;
-      list.forEach((element) => {
+      list.forEach(element => {
         if (element < day + 5 && element > day) {
           in5day = true;
         }
@@ -113,7 +113,7 @@ export default {
       const average =
         this.TPEDealData.reduce(
           (acc, val) => parseInt(acc) + parseInt(val),
-          0
+          0,
         ) / 30;
       // 前15天平均成交量
       let front_15_average =
@@ -166,13 +166,13 @@ export default {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             let str = xhr.responseText;
-            this.TPEData = str.split(",");
+            this.TPEData = str.split(',');
           } else {
             console.log(xhr.responseText);
           }
         }
       };
-      xhr.open("get", url, true);
+      xhr.open('get', url, true);
       xhr.send(null);
     },
   },

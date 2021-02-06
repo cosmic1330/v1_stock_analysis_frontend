@@ -2,18 +2,23 @@
 
 <script>
 // @ is an alias to /src
-import "./style.scss";
+import './style.scss';
+import PER from '../../views/per/script';
+import Corporations from '../../views/corporations/script';
 
 export default {
-  name: "Tab",
+  name: 'Tab',
   props: [],
   mounted: function () {},
   data() {
     return {
-      activeName: "second",
+      activeName: 'first',
     };
   },
-  components: {},
+  components: {
+    PER,
+    Corporations
+  },
   computed: {},
   methods: {},
   watch: {},

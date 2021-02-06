@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import "./style.scss";
+import './style.scss';
 
 export default {
-  name: "Tab",
-  props: [],
+  name: 'Tab',
+  props: ['dbDate'],
   mounted: function () {},
   data() {
     return {
