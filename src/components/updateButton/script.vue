@@ -10,6 +10,9 @@ import {
     Save_PER_to_DB,
     Save_Corporation_to_DB,
     Check_Stock_With_Date,
+    Save_MACD_to_DB,
+    Save_MA_to_DB,
+    Save_KD_to_DB
 } from "../../api/api.js";
 export default {
     name: "UpdateButton",
@@ -46,6 +49,9 @@ export default {
                 await this.getPERData();
                 await this.getCorporationsData();
                 await this.getStockPrice();
+                await this.saveMACD();
+                await this.saveKD();
+                await this.saveMA();
                 this.openInfo("成功", "更新完成");
                 this.disabled = false;
             } catch (error) {
@@ -84,7 +90,7 @@ export default {
                 let tsmc = await Check_Stock_With_Date(2330,date);
                 let delta = await Check_Stock_With_Date(2308,date);
                 // 判斷用戶端有沒有最新股價
-                if (tsmc.data===true&&delta.data==='true') {
+                if (tsmc.data===true&&delta.data===true) {
                     return false;
                 } else {
                     for (let i = 0; i < codes.length; i++) {
@@ -127,9 +133,25 @@ export default {
                 console.log(error);
             }
         },
+        // 4.儲存股價到Database
         async savePrice(price) {
             let data = `data=${JSON.stringify(price)}`;
             await Save_Price_to_DB(data).then(response => console.log(response));
+        },
+        // 5.更新MACD
+        async saveMACD() {
+            await Save_MACD_to_DB();
+            this.openSuccess("成功", "更新最新MACD");
+        },
+        // 6.更新KD
+        async saveKD() {
+            await Save_KD_to_DB();
+            this.openSuccess("成功", "更新最新KD");
+        },
+        // 7.更新MA
+        async saveMA() {
+            await Save_MA_to_DB();
+            this.openSuccess("成功", "更新最新MA");
         },
     },
     watch: {},

@@ -29,6 +29,15 @@ export const Save_PER_to_DB = () => base({ method: "get", url: "/BWI/getNewBWI" 
 // 儲存三大法人買賣超
 export const Save_Corporation_to_DB = () => base({ method: "get", url: "/Corporations/getNewCorporations" });
 
+// 儲存MACD
+export const Save_MACD_to_DB = () => base({ method: "get", url: "/MACD/forLoopMACD" });
+
+// 儲存KD
+export const Save_KD_to_DB = () => base({ method: "get", url: "/KD/forLoopKD" });
+
+// 儲存MA
+export const Save_MA_to_DB = () => base({ method: "get", url: "/MA/forLoopMA" });
+
 // 檢查
 export const Check_Stock_With_Date = (code,date) => base({method: "get", url: `/Single/checkSingleStockInDBOfDate`, options: { params: { code: code, date: date } }})
 
