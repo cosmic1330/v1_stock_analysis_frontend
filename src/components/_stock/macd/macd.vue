@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import './macd.scss';
+import "./macd.scss";
 
 export default {
-    name: 'Macd',
-    props: ['stockValue'],
+    name: "Macd",
+    props: ["stockValue"],
     mounted: function () {},
     data() {
         return {};
@@ -16,7 +16,7 @@ export default {
         dif: function () {
             let data = [false, false];
             if (this.stockValue) {
-                console.log('macd');
+                console.log("macd");
                 let value = JSON.stringify(this.stockValue);
                 value = JSON.parse(value);
                 let ma12 = this.getMa12(value);
@@ -38,17 +38,11 @@ export default {
                 // 判斷
                 // 1. 趨勢翻轉
                 // 2. MACD近三天有黃金交叉
-                if (
-                    (response[0] < 0.01 && response[0] > -0.01) ||
-                    (response[1] < 0.01 && response[1] > -0.01)
-                ) {
+                if ((response[0] < 0.01 && response[0] > -0.01) || (response[1] < 0.01 && response[1] > -0.01)) {
                     data[0] = true;
                 }
 
-                if (
-                    dif[0] > macd[0] &&
-                    (dif[1] < macd[1] || dif[2] < macd[2])
-                ) {
+                if (dif[0] > macd[0] && (dif[1] < macd[1] || dif[2] < macd[2])) {
                     data[1] = true;
                 }
             }
@@ -66,25 +60,13 @@ export default {
             let DI = this.getDI(value);
 
             let firstEMA =
-                (DI[0] +
-                    DI[1] +
-                    DI[2] +
-                    DI[3] +
-                    DI[4] +
-                    DI[5] +
-                    DI[6] +
-                    DI[7] +
-                    DI[8] +
-                    DI[9] +
-                    DI[10] +
-                    DI[11]) /
-                12;
+                (DI[0] + DI[1] + DI[2] + DI[3] + DI[4] + DI[5] + DI[6] + DI[7] + DI[8] + DI[9] + DI[10] + DI[11]) / 12;
             let arr = [firstEMA];
             for (let i = 0; i < DI.length - 11; i++) {
                 const element = (arr[i] * 10 + DI[i + 11] * 2) / 12;
                 arr.push(element);
             }
-            console.log('ma12', arr);
+            console.log("ma12", arr);
             return arr; // ma12值
         },
         getMa26(value) {

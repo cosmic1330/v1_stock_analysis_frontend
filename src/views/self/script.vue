@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'Self',
+    name: "Self",
     mounted: function () {},
     data: () => ({}),
 };

@@ -1,5 +1,5 @@
-import { Message } from 'element-ui';
-import router from '../router';
+import { Message } from "element-ui";
+import router from "../router";
 
 // 錯誤訊息提示
 export const tip = msg => {
@@ -9,7 +9,7 @@ export const tip = msg => {
 // 跳轉回首頁 ( 攜帶棉欠路由  登入後跳轉回原本頁面 )
 export const toLogin = () => {
     router.replace({
-        name: 'Check',
+        name: "Check",
         query: {
             redirect: router.currentRoute.fullPath,
         },
@@ -19,6 +19,6 @@ export const toLogin = () => {
 // 跳轉道403 page
 export const to403Page = () => {
     router.replace({
-        name: '403',
+        name: "403",
     });
 };

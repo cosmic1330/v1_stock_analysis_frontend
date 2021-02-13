@@ -2,10 +2,10 @@
 
 <script>
 // @ is an alias to /src
-import './tpe.scss';
+import "./tpe.scss";
 
 export default {
-    name: 'Tpe',
+    name: "Tpe",
     mounted: function () {
         this.getTPEData();
     },
@@ -83,10 +83,7 @@ export default {
             // 取得收盤價差超過1%的時間點
             let list = [];
             for (let i = 0; i < 30; i++) {
-                const element =
-                    ((this.TPECloseData[i] - this.TPECloseData[i - 1]) /
-                        this.TPECloseData[i]) *
-                    100;
+                const element = ((this.TPECloseData[i] - this.TPECloseData[i - 1]) / this.TPECloseData[i]) * 100;
                 if (element < -1) {
                     list.push(i);
                 }
@@ -101,10 +98,7 @@ export default {
                 }
             });
 
-            let value =
-                ((this.MaxHeightPrice - this.MinLowPrice) /
-                    this.MaxHeightPrice) *
-                100; // 最高最低差
+            let value = ((this.MaxHeightPrice - this.MinLowPrice) / this.MaxHeightPrice) * 100; // 最高最低差
             // 分析： 最高最低價差 > 8% 且沒有發生在最高價5天內，回傳 false;
             if (value > 8 && !in5day) return 0;
             else return 1;
@@ -112,11 +106,7 @@ export default {
         // 成交量狀態
         DealStatus() {
             // 30天平均成交量
-            const average =
-                this.TPEDealData.reduce(
-                    (acc, val) => parseInt(acc) + parseInt(val),
-                    0,
-                ) / 30;
+            const average = this.TPEDealData.reduce((acc, val) => parseInt(acc) + parseInt(val), 0) / 30;
             // 前15天平均成交量
             let front_15_average =
                 this.TPEDealData.filter((item, index) => {
@@ -168,13 +158,13 @@ export default {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     if (xhr.status == 200) {
                         let str = xhr.responseText;
-                        this.TPEData = str.split(',');
+                        this.TPEData = str.split(",");
                     } else {
                         console.log(xhr.responseText);
                     }
                 }
             };
-            xhr.open('get', url, true);
+            xhr.open("get", url, true);
             xhr.send(null);
         },
     },

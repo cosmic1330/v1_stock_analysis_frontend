@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { tip, toLogin, to403Page } from './utils.js';
+import axios from "axios";
+import { tip, toLogin, to403Page } from "./utils.js";
 
 const errorHandle = (status, msg) => {
     switch (status) {
@@ -7,7 +7,7 @@ const errorHandle = (status, msg) => {
             tip(msg);
             break;
         case 401:
-            tip('登入過期,請重新登入');
+            tip("登入過期,請重新登入");
             setTimeout(() => {
                 toLogin();
             }, 1500);
@@ -19,7 +19,7 @@ const errorHandle = (status, msg) => {
             tip(msg);
             break;
         default:
-            tip('res沒有攔截到的錯誤' + msg);
+            tip("res沒有攔截到的錯誤" + msg);
             break;
     }
 };
@@ -27,6 +27,7 @@ const errorHandle = (status, msg) => {
 // 預設路由
 const instance = axios.create({
     baseURL: process.env.VUE_APP_SECRET,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
 });
 
 const instanceCors = axios.create({
@@ -55,7 +56,7 @@ instance.interceptors.response.use(
             return Promise.reject(error);
         } else {
             if (!window.navigator.online) {
-                tip('請檢察網路，連線後再重新刷新頁面');
+                tip("請檢察網路，連線後再重新刷新頁面");
             } else {
                 return Promise.reject(error);
             }
@@ -64,30 +65,30 @@ instance.interceptors.response.use(
 );
 
 // 封裝
-export const base = ({ method, url, data = null, config = null }) => {
+export const base = ({ method, url, data = null, options = null }) => {
     method = method.toLowerCase();
-    if (method == 'post') {
-        return instance.post(url, data, config);
-    } else if (method == 'get') {
-        return instance.get(url, config);
-    } else if (method == 'delete') {
-        return instance.delete(url, config);
-    } else if (method == 'put') {
-        return instance.put(url, data, config);
-    } else if (method == 'patch') {
-        return instance.patch(url, data, config);
+    if (method == "post") {
+        return instance.post(url, data, options);
+    } else if (method == "get") {
+        return instance.get(url, options);
+    } else if (method == "delete") {
+        return instance.delete(url, options);
+    } else if (method == "put") {
+        return instance.put(url, data, options);
+    } else if (method == "patch") {
+        return instance.patch(url, data, options);
     } else {
-        console.error('未知的method' + method);
+        console.error("未知的method" + method);
         return false;
     }
 };
 
 export const cors = ({ method, url }) => {
     method = method.toLowerCase();
-    if (method == 'get') {
+    if (method == "get") {
         return instanceCors.get(url);
     } else {
-        console.error('未知的method' + method);
+        console.error("未知的method" + method);
         return false;
     }
 };

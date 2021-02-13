@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Nav :db-date="date"></Nav>
+        <Nav></Nav>
         <el-container>
             <el-main>
                 <router-view />
@@ -21,24 +21,35 @@
 </style>
 
 <script>
-import Nav from './components/nav/script';
-import { Get_Last_Date } from './api/api.js';
+import Nav from "./components/nav/script";
+import { Get_Last_Date, Get_All_Stock_Code } from "./api/api.js";
 export default {
-    name: 'App',
+    name: "App",
     mounted: function () {
-        Get_Last_Date()
-            .then(reponse => (this.date = reponse.data.date))
-            .catch(error => console.log(error.response.data.message));
+        this.getData();
     },
     components: {
         Nav,
     },
     data() {
-        return {
-            date: '????-??-??',
-        };
+        return {};
     },
     computed: {},
-    methods: {},
+    methods: {
+        async getData() {
+            try {
+                let lastDate = await Get_Last_Date();
+                let codesData = await Get_All_Stock_Code();
+                let codes = {};
+                codesData.data.forEach(element => {
+                    codes[element.code] = element.name;
+                });
+                this.$store.commit("setCodes", codes);
+                this.$store.commit("setLastDate", lastDate.data.date);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
 };
 </script>

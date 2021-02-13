@@ -2,19 +2,26 @@
 
 <script>
 // @ is an alias to /src
-import './style.scss';
+import "./style.scss";
+import UpdateButton from "../updateButton/script";
 
 export default {
-    name: 'Tab',
-    props: ['dbDate'],
+    name: "Tab",
+    props: [],
     mounted: function () {},
     data() {
         return {
             drawer: false,
         };
     },
-    components: {},
-    computed: {},
+    components: {
+        UpdateButton,
+    },
+    computed: {
+        lastDate() {
+            return this.$store.state.lastDate;
+        },
+    },
     methods: {},
     watch: {},
 };

@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import './ma.scss';
+import "./ma.scss";
 
 export default {
-    name: 'Ma',
-    props: ['stockValue'],
+    name: "Ma",
+    props: ["stockValue"],
     mounted: function () {},
     data() {
         return {};
@@ -30,10 +30,7 @@ export default {
                 // 判斷
                 // 1. 今日交易量大於平均交易量和成交量大於1000張
                 // 2. ma黃金交叉
-                if (
-                    today.v > 1000 &&
-                    (today.v > tradingVolume || yesterday.v > tradingVolume)
-                ) {
+                if (today.v > 1000 && (today.v > tradingVolume || yesterday.v > tradingVolume)) {
                     response[0] = true;
                 }
                 // if (ma5[0] > ma20[0] && (ma5[1] < ma20[1] || ma5[2] < ma20[2])) {
@@ -47,13 +44,7 @@ export default {
         getMa5(value) {
             let arr = [];
             for (let i = 4; i < value.length; i++) {
-                let element =
-                    (value[i].c +
-                        value[i - 1].c +
-                        value[i - 2].c +
-                        value[i - 3].c +
-                        value[i - 4].c) /
-                    5;
+                let element = (value[i].c + value[i - 1].c + value[i - 2].c + value[i - 3].c + value[i - 4].c) / 5;
                 element = Math.round(element * 100) / 100;
                 arr.push(element);
             }

@@ -2,11 +2,11 @@
 
 <script>
 // @ is an alias to /src
-import './rsi.scss';
+import "./rsi.scss";
 
 export default {
-    name: 'Rsi',
-    props: ['stockValue'],
+    name: "Rsi",
+    props: ["stockValue"],
     mounted: function () {},
     data() {
         return {};

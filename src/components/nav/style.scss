@@ -14,6 +14,8 @@
             flex-direction: column;
             justify-content: space-between;
             ul {
+                list-style: none;
+                padding: 0;
                 a {
                     text-decoration: none;
                     color: #303030;
@@ -27,6 +29,9 @@
                 }
             }
             #databaseTime {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
                 padding: 10px;
                 text-align: center;
             }
