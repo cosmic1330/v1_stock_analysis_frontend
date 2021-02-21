@@ -35,7 +35,7 @@
 
 <script>
 import "./style.scss";
-import { Get_Corporations_Stock } from "../../api/api.js";
+import { Get_Corporations_Stock } from "../../../api/api.js";
 export default {
     name: "Corporations",
     mounted: function () {
@@ -43,15 +43,21 @@ export default {
     },
     data: () => ({
         requirement: "法人連續買超2日",
-        trust: [],
-        foreign: [],
     }),
+    computed: {
+        trust() {
+            return this.$store.state.trust;
+        },
+        foreign() {
+            return this.$store.state.foreign;
+        },
+    },
     methods: {
         getFilterPerData() {
             Get_Corporations_Stock()
                 .then(response => {
-                    this.trust = response.data.trust;
-                    this.foreign = response.data.foreign;
+                    this.$store.commit("setForeign", response.data.foreign);
+                    this.$store.commit("setTrust", response.data.trust);
                 })
                 .catch(error => console.log(error.response));
         },

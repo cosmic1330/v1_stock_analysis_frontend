@@ -6,6 +6,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         codes: {},
+        per:[],
+        trust:[],
+        foreign:[],
+        stock:[],
         lastDate: "????-??-??",
     },
     getters: {},
@@ -15,6 +19,18 @@ export default new Vuex.Store({
         },
         setLastDate(state, data) {
             state.lastDate = data;
+        },
+        setPer(state, data) {
+            state.per = data;
+        },
+        setTrust(state, data) {
+            state.trust = data;
+        },
+        setForeign(state, data) {
+            state.foreign = data;
+        },
+        setStock(state, data) {
+            state.stock = data;
         },
     },
     actions: {},

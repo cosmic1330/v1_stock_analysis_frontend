@@ -38,8 +38,11 @@ export const Save_KD_to_DB = () => base({ method: "get", url: "/KD/forLoopKD" })
 // 儲存MA
 export const Save_MA_to_DB = () => base({ method: "get", url: "/MA/forLoopMA" });
 
-// 檢查
+// 檢查日期是否相符
 export const Check_Stock_With_Date = (code,date) => base({method: "get", url: `/Single/checkSingleStockInDBOfDate`, options: { params: { code: code, date: date } }})
+
+// 取得股票技術資料
+export const Get_Stock_from_DB = () => base({ method: "get", url: "/Single/getWithinConditionsStock" });
 
 // -------------------------------------------cors--------------------------------------------------
 

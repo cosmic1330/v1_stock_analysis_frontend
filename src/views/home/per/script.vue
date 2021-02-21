@@ -19,7 +19,7 @@
 
 <script>
 import "./style.scss";
-import { Get_Per_Stock } from "../../api/api.js";
+import { Get_Per_Stock } from "../../../api/api.js";
 export default {
     name: "Per",
     mounted: function () {
@@ -27,13 +27,17 @@ export default {
     },
     data: () => ({
         requirement: "",
-        stock: [],
     }),
+    computed: {
+        stock() {
+            return this.$store.state.per;
+        },
+    },
     methods: {
         getFilterPerData() {
             Get_Per_Stock()
                 .then(response => {
-                    this.stock = response.data.data;
+                    this.$store.commit("setPer", response.data.data);
                     this.requirement = response.data.requirement;
                 })
                 .catch(error => console.log(error.response));

@@ -3,8 +3,9 @@
 <script>
 // @ is an alias to /src
 import "./style.scss";
-import PER from "../../views/per/script";
-import Corporations from "../../views/corporations/script";
+import PER from "../../views/home/per/script";
+import Corporations from "../../views/home/corporations/script";
+import Skill from "../../views/home/skill/script";
 
 export default {
     name: "Tab",
@@ -12,12 +13,13 @@ export default {
     mounted: function () {},
     data() {
         return {
-            activeName: "first",
+            activeName: "third",
         };
     },
     components: {
         PER,
         Corporations,
+        Skill,
     },
     computed: {},
     methods: {},

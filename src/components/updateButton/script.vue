@@ -27,6 +27,13 @@ export default {
     components: {},
     computed: {},
     methods: {
+        isJSON(str) {
+            try {
+                return (JSON.parse(str) && !!str);
+            } catch (e) {
+                return false;
+            }
+        },
         // 顯示提示訊息
         openInfo(title, message) {
             this.$notify.info({
@@ -49,9 +56,6 @@ export default {
                 await this.getPERData();
                 await this.getCorporationsData();
                 await this.getStockPrice();
-                await this.saveMACD();
-                await this.saveKD();
-                await this.saveMA();
                 this.openInfo("成功", "更新完成");
                 this.disabled = false;
             } catch (error) {
@@ -99,32 +103,37 @@ export default {
                         response = response.data
                             .replace("jQuery111306382856220483186_1591513211276(", "")
                             .replace(");", "");
-                        response = JSON.parse(response).ta;
-                        response = response.map(element => {
-                            let obj = {
-                                hight_price: element.h, // 最高價
-                                low_price: element.l, // 最低價
-                                open_price: element.o, // 開盤價
-                                close_price: element.c, // 收盤價
-                                volume: element.v, // 交易量
-                                date: element.t,
-                            };
-                            return obj;
-                        });
-                        price[element] = response;
-                        AllPrice[element] = response;
-                        // 分階段上傳
-                        if (i === Math.round(codes.length / 4)) {
-                            this.savePrice(price); // 第一次上傳
-                            price = {};
-                        } else if (i === Math.round((codes.length / 4) * 2)) {
-                            this.savePrice(price); // 第二次上傳
-                            price = {};
-                        } else if (i === Math.round((codes.length / 4) * 3)) {
-                            this.savePrice(price); // 第三次上傳
-                            price = {};
-                        } else if (i === codes.length - 1) {
-                            await this.savePrice(price); // 第四次上傳
+                        if(this.isJSON(response)){
+                            response = JSON.parse(response).ta;
+                            response = response.map(element => {
+                                let obj = {
+                                    hight_price: element.h, // 最高價
+                                    low_price: element.l, // 最低價
+                                    open_price: element.o, // 開盤價
+                                    close_price: element.c, // 收盤價
+                                    volume: element.v, // 交易量
+                                    date: element.t,
+                                };
+                                return obj;
+                            });
+                            price[element] = response;
+                            AllPrice[element] = response;
+                            // 分階段上傳
+                            if (i === Math.round(codes.length / 4)) {
+                                this.savePrice(price); // 第一次上傳
+                                price = {};
+                            } else if (i === Math.round((codes.length / 4) * 2)) {
+                                this.savePrice(price); // 第二次上傳
+                                price = {};
+                            } else if (i === Math.round((codes.length / 4) * 3)) {
+                                this.savePrice(price); // 第三次上傳
+                                price = {};
+                            } else if (i === codes.length - 1) {
+                                await this.savePrice(price); // 第四次上傳
+                                await this.saveMACD();
+                                await this.saveKD();
+                                await this.saveMA();
+                            }
                         }
                     }
                 }
