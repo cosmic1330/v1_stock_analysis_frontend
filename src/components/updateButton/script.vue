@@ -12,7 +12,8 @@ import {
     Check_Stock_With_Date,
     Save_MACD_to_DB,
     Save_MA_to_DB,
-    Save_KD_to_DB
+    Save_KD_to_DB,
+    Save_RSI_to_DB
 } from "../../api/api.js";
 export default {
     name: "UpdateButton",
@@ -133,6 +134,7 @@ export default {
                                 await this.saveMACD();
                                 await this.saveKD();
                                 await this.saveMA();
+                                await this.saveRSI();
                             }
                         }
                     }
@@ -161,6 +163,11 @@ export default {
         async saveMA() {
             await Save_MA_to_DB();
             this.openSuccess("成功", "更新最新MA");
+        },
+        // 7.更新RSI
+        async saveRSI() {
+            await Save_RSI_to_DB();
+            this.openSuccess("成功", "更新最新RSI");
         },
     },
     watch: {},

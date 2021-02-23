@@ -38,6 +38,9 @@ export const Save_KD_to_DB = () => base({ method: "get", url: "/KD/forLoopKD" })
 // 儲存MA
 export const Save_MA_to_DB = () => base({ method: "get", url: "/MA/forLoopMA" });
 
+// 儲存RSI
+export const Save_RSI_to_DB = () => base({ method: "get", url: "/RSI/forLoopRSI" });
+
 // 檢查日期是否相符
 export const Check_Stock_With_Date = (code,date) => base({method: "get", url: `/Single/checkSingleStockInDBOfDate`, options: { params: { code: code, date: date } }})
 

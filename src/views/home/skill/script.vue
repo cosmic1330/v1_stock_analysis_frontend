@@ -4,14 +4,30 @@
         <article class="area1">
             <h2>確切的股票 (邁向上漲趨勢)</h2>
             <el-table :data="definite" style="width: 100%">
-                <el-table-column prop="code" label="股票代號" width="100"> </el-table-column>
+                <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column label="股票代號" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{scope.row.code}}</a></p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="名稱" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterYahooUrl(scope.row.code)" target="_blank">{{scope.row.name}}</a></p>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="close_price" label="收盤價" width="100"> </el-table-column>
                 <el-table-column prop="volume" label="量" width="100"> </el-table-column>
-                <el-table-column label="三關價">
+                <el-table-column label="三關價"  width="100">
                     <template slot-scope="scope">
                         <p>上關: {{ customsPrices(scope.row, 'UP') }}</p>
                         <p>中關: {{ customsPrices(scope.row, 'Mid') }}</p>
                         <p>下關: {{ customsPrices(scope.row, 'Down') }}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="RSI"  width="120">
+                    <template slot-scope="scope">
+                        <p>RSI6: {{ scope.row.rsi6 }}</p>
+                        <p>RSI12: {{ scope.row.rsi12 }}</p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="BIAS5" label="乖離率" width="100"> </el-table-column>
@@ -19,45 +35,42 @@
         </article>
 
         <article class="area1">
-            <h2>參考指標的股票 (上漲趨勢股)</h2>
-            <el-table :data="reference" style="width: 100%">
-                <el-table-column prop="code" label="股票代號" width="100"> </el-table-column>
-                <el-table-column prop="close_price" label="收盤價" width="100"> </el-table-column>
-                <el-table-column label="上漲訊息">
-                    <template slot-scope="scope">
-                        <p>{{ scope.row.msg[0] }}</p>
-                        <p>{{ scope.row.msg[1] }}</p>
-                        <p>{{ scope.row.msg[2] }}</p>
-                    </template>
-                </el-table-column>
-                <el-table-column label="三關價">
-                    <template slot-scope="scope">
-                        <p>上關: {{ customsPrices(scope.row, 'UP') }}</p>
-                        <p>中關: {{ customsPrices(scope.row, 'Mid') }}</p>
-                        <p>下關: {{ customsPrices(scope.row, 'Down') }}</p>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </article>
-        <article class="area1">
             <h2>谷底翻身 (上漲趨勢股)</h2>
             <el-table :data="bottom" style="width: 100%">
-                <el-table-column prop="code" label="股票代號" width="100"> </el-table-column>
-                <el-table-column prop="close_price" label="收盤價" width="100"> </el-table-column>
-                <el-table-column label="上漲訊息">
+                <el-table-column label="股票代號" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{scope.row.code}}</a></p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="名稱" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterYahooUrl(scope.row.code)" target="_blank">{{scope.row.name}}</a></p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="量" width="100"> </el-table-column>
+                <el-table-column label="上漲訊息" width="150">
                     <template slot-scope="scope">
                         <p>{{ scope.row.msg[0] }}</p>
                         <p>{{ scope.row.msg[1] }}</p>
                         <p>{{ scope.row.msg[2] }}</p>
                     </template>
                 </el-table-column>
-                <el-table-column label="三關價">
+                <el-table-column label="三關價" width="100">
                     <template slot-scope="scope">
                         <p>上關: {{ customsPrices(scope.row, 'UP') }}</p>
                         <p>中關: {{ customsPrices(scope.row, 'Mid') }}</p>
                         <p>下關: {{ customsPrices(scope.row, 'Down') }}</p>
                     </template>
                 </el-table-column>
+                <el-table-column label="價" width="120">
+                    <template slot-scope="scope">
+                        <p>開盤價: {{ scope.row.open_price }}</p>
+                        <p>最高價: {{ scope.row.hight_price }}</p>
+                        <p>收盤價: {{ scope.row.close_price }}</p>
+                        <p>最低價: {{ scope.row.low_price }}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="BIAS5" label="乖離率" width="100"> </el-table-column>
             </el-table>
         </article>
     </div>
@@ -80,14 +93,20 @@ export default {
             let arr = [];
             Object.keys(data).forEach(element => {
                 if(
+                    // RSI塞選
+                    data[element][0]['rsi6'] < data[element][0]['rsi12'] &&
+                    data[element][2]['rsi6'] > data[element][2]['rsi12'] &&
+                    data[element][1]['rsi12'] > 50 &&
+                    data[element][1]['rsi12'] < 70 &&
                     // MACD塞選
-                    data[element][0]['DIF'] < data[element][0]['MACD'] &&
-                    data[element][2]['DIF'] > data[element][2]['MACD'] &&
                     data[element][2]['DIF'] > 0 &&
                     data[element][2]['MACD'] > 0 &&
+                    data[element][2]['OSC'] > -0.03 &&
                     // KD 塞選
-                    data[element][0]['K9'] < data[element][0]['D9'] &&
-                    data[element][2]['K9'] > data[element][2]['D9'] &&
+                    data[element][2]['K9'] > data[element][1]['K9'] &&
+                    data[element][1]['K9'] > data[element][0]['K9'] &&
+                    // data[element][0]['K9'] < data[element][0]['D9'] &&
+                    // data[element][2]['K9'] > data[element][2]['D9'] &&
                     data[element][2]['K9']> 30 &&
                     data[element][2]['K9']< 70 &&
                     data[element][2]['D9']> 30 &&
@@ -160,7 +179,7 @@ export default {
                     data[element][2]['volume'] > 1000 &&
                     (parseInt(data[element][2]['close_price'])-parseInt(data[element][2]['open_price']))/parseInt(data[element][2]['open_price'])*2 < (parseInt(data[element][2]['open_price'])-parseInt(data[element][2]['low_price']))/parseInt(data[element][2]['open_price']) &&
                     parseInt(data[element][2]['close_price']) >= parseInt(data[element][2]['open_price']) &&
-                    parseInt(data[element][2]['open_price']) >= parseInt(data[element][2]['low_price']) &&
+                    parseInt(data[element][2]['open_price']) > parseInt(data[element][2]['low_price']) &&
                     data[element][2]['close_price'] == data[element][2]['hight_price']
                 ){
                         msg.push('吊人線')
@@ -170,8 +189,8 @@ export default {
                 if(
                     data[element][2]['volume'] > 1000 &&
                     (parseInt(data[element][2]['close_price'])-parseInt(data[element][2]['open_price']))/parseInt(data[element][2]['open_price'])*2 < (parseInt(data[element][2]['open_price'])-parseInt(data[element][2]['low_price']))/parseInt(data[element][2]['open_price']) &&
-                    parseInt(data[element][2]['close_price']) >= parseInt(data[element][2]['open_price']) &&
-                    parseInt(data[element][2]['open_price']) >= parseInt(data[element][2]['low_price']) &&
+                    parseInt(data[element][2]['close_price']) > parseInt(data[element][2]['open_price']) &&
+                    parseInt(data[element][2]['open_price']) > parseInt(data[element][2]['low_price']) &&
                     data[element][2]['close_price'] == data[element][2]['open_price']
                 ){
                         msg.push('下引十字線')
@@ -213,6 +232,14 @@ export default {
             }
             return Math.round(response * 100) / 100;
         },
+        filterPchomeUrl(code){
+            let str = "https://pchome.megatime.com.tw/stock/sto0/ock1/sid"+code+".html";
+            return str;
+        },
+        filterYahooUrl(code){
+            let str = "https://tw.stock.yahoo.com/q/ta?s="+code;
+            return str;
+        }
     },
 };
 </script>
