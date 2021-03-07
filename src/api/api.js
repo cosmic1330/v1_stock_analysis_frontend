@@ -47,6 +47,9 @@ export const Check_Stock_With_Date = (code,date) => base({method: "get", url: `/
 // 取得股票技術資料
 export const Get_Stock_from_DB = () => base({ method: "get", url: "/Single/getWithinConditionsStock" });
 
+// 取得一個月的股票資料
+export const Get_One_Month_Of_Stock = (code) => base({ method: "get", url: "/Single/getOneMonthOfStock/"+code });
+
 // -------------------------------------------cors--------------------------------------------------
 
 // 取得yahoo股價

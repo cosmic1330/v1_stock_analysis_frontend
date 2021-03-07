@@ -57,7 +57,7 @@ export default {
                 await this.getPERData();
                 await this.getCorporationsData();
                 await this.getStockPrice();
-                this.openInfo("成功", "更新完成");
+                await this.openInfo("成功", "更新完成");
                 this.disabled = false;
             } catch (error) {
                 this.$notify.error({
@@ -70,7 +70,8 @@ export default {
         },
         // 1.更新最新交易日
         async getTradingDate() {
-            await Save_Trading_Date_to_DB();
+            let response = await Save_Trading_Date_to_DB();
+            this.$store.commit("setLastDate", response.data.date);
             this.openSuccess("成功", "更新最新交易日");
         },
         // 2.更新本益比
@@ -93,7 +94,7 @@ export default {
                 codes = Object.keys(codes);
                 let date = this.$store.state.lastDate;
                 let tsmc = await Check_Stock_With_Date(2330,date);
-                let delta = await Check_Stock_With_Date(2308,date);
+                let delta = await Check_Stock_With_Date(8150,date);
                 // 判斷用戶端有沒有最新股價
                 if (tsmc.data===true&&delta.data===true) {
                     return false;

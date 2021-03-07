@@ -73,6 +73,39 @@
                 <el-table-column prop="BIAS5" label="乖離率" width="100"> </el-table-column>
             </el-table>
         </article>
+
+        <article class="area1">
+            <h2>追蹤的股票</h2>
+            <el-table :data="mylove" style="width: 100%">
+                <el-table-column label="股票代號" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{scope.row.code}}</a></p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="名稱" width="100">
+                    <template slot-scope="scope">
+                        <p><a :href="filterYahooUrl(scope.row.code)" target="_blank">{{scope.row.name}}</a></p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="volume" label="量" width="100"> </el-table-column>
+                <el-table-column label="三關價" width="100">
+                    <template slot-scope="scope">
+                        <p>上關: {{ customsPrices(scope.row, 'UP') }}</p>
+                        <p>中關: {{ customsPrices(scope.row, 'Mid') }}</p>
+                        <p>下關: {{ customsPrices(scope.row, 'Down') }}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column label="價" width="120">
+                    <template slot-scope="scope">
+                        <p>開盤價: {{ scope.row.open_price }}</p>
+                        <p>最高價: {{ scope.row.hight_price }}</p>
+                        <p>收盤價: {{ scope.row.close_price }}</p>
+                        <p>最低價: {{ scope.row.low_price }}</p>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="BIAS5" label="乖離率" width="100"> </el-table-column>
+            </el-table>
+        </article>
     </div>
 </template>
 
@@ -103,10 +136,10 @@ export default {
                     data[element][2]['MACD'] > 0 &&
                     data[element][2]['OSC'] > -0.03 &&
                     // KD 塞選
-                    data[element][2]['K9'] > data[element][1]['K9'] &&
-                    data[element][1]['K9'] > data[element][0]['K9'] &&
-                    // data[element][0]['K9'] < data[element][0]['D9'] &&
-                    // data[element][2]['K9'] > data[element][2]['D9'] &&
+                    // data[element][2]['K9'] > data[element][1]['K9'] &&
+                    // data[element][1]['K9'] > data[element][0]['K9'] &&
+                    data[element][0]['K9'] < data[element][0]['D9'] &&
+                    data[element][2]['K9'] > data[element][2]['D9'] &&
                     data[element][2]['K9']> 30 &&
                     data[element][2]['K9']< 70 &&
                     data[element][2]['D9']> 30 &&
@@ -122,40 +155,18 @@ export default {
             });
             return arr;
         },
-        reference(){
+        mylove(){
             let data = this.$store.state.stock;
             let arr = [];
             Object.keys(data).forEach(element => {
-                let msg = [];
-                // KD 黃金交叉
-                if(
-                    data[element][0]['K9'] < data[element][0]['D9'] &&
-                    data[element][2]['K9'] > data[element][2]['D9']
-                ){
-                    msg.push('KD黃叉')
-                }
 
-                // MACD 轉正
+                // 指定股票
                 if(
-                    data[element][2]['OSC'] > 0 &&
-                    data[element][0]['OSC'] < 0
+                    data[element][0]['stock_code'] === '2208' ||
+                    data[element][0]['stock_code'] === '1710' ||
+                    data[element][0]['stock_code'] === '2462'
                 ){
-                    msg.push('MACD轉正')
-                }
-
-                // 價量
-                if(
-                    data[element][2]['volume'] > 1000 &&
-                    data[element][0]['close_price'] < data[element][0]['MA5'] &&
-                    data[element][2]['close_price'] > data[element][2]['MA5']
-                ){
-                        msg.push('站上MA5')
-                }
-
-                // 如果符合以上資格
-                if(msg.length > 2){
-                    data[element][2]['msg'] = msg;
-                    arr.push(data[element][2])
+                        arr.push(data[element][2])
                 }
             });
             return arr;
@@ -168,16 +179,19 @@ export default {
 
                 // KD 往上準備交叉
                 if(
-                    data[element][0]['K9'] < data[element][2]['K9'] &&
-                    Math.abs(parseInt(data[element][2]['D9'])-parseInt(data[element][1]['D9'])) < Math.abs(parseInt(data[element][1]['D9'])-parseInt(data[element][0]['D9']))
+                    data[element][2]['volume'] > 1000 &&
+                    data[element][0]['K9'] < data[element][0]['D9'] &&
+                    data[element][2]['K9'] > data[element][2]['D9'] &&
+                    data[element][0]['rsi6'] < data[element][0]['rsi12'] &&
+                    data[element][2]['rsi6'] > data[element][2]['rsi12'] 
                 ){
-                    msg.push('KD持續增加')
+                    msg.push('RSI、KD黃金交叉')
                 }
 
                 // 吊人線
                 if(
-                    data[element][2]['volume'] > 1000 &&
-                    (parseInt(data[element][2]['close_price'])-parseInt(data[element][2]['open_price']))/parseInt(data[element][2]['open_price'])*2 < (parseInt(data[element][2]['open_price'])-parseInt(data[element][2]['low_price']))/parseInt(data[element][2]['open_price']) &&
+                     data[element][2]['volume'] > 1000 &&
+                    (parseInt(data[element][2]['close_price'])-parseInt(data[element][2]['open_price']))/parseInt(data[element][2]['open_price'])*3 < (parseInt(data[element][2]['open_price'])-parseInt(data[element][2]['low_price']))/parseInt(data[element][2]['open_price']) &&
                     parseInt(data[element][2]['close_price']) >= parseInt(data[element][2]['open_price']) &&
                     parseInt(data[element][2]['open_price']) > parseInt(data[element][2]['low_price']) &&
                     data[element][2]['close_price'] == data[element][2]['hight_price']
@@ -187,7 +201,7 @@ export default {
 
                 // 下引十字線
                 if(
-                    data[element][2]['volume'] > 1000 &&
+                     data[element][2]['volume'] > 1000 &&
                     (parseInt(data[element][2]['close_price'])-parseInt(data[element][2]['open_price']))/parseInt(data[element][2]['open_price'])*2 < (parseInt(data[element][2]['open_price'])-parseInt(data[element][2]['low_price']))/parseInt(data[element][2]['open_price']) &&
                     parseInt(data[element][2]['close_price']) > parseInt(data[element][2]['open_price']) &&
                     parseInt(data[element][2]['open_price']) > parseInt(data[element][2]['low_price']) &&
@@ -197,7 +211,7 @@ export default {
                 }
 
                 // 如果符合以上資格
-                if(msg.length > 1){
+                if(msg.length > 0){
                     data[element][2]['msg'] = msg;
                     arr.push(data[element][2])
                 }

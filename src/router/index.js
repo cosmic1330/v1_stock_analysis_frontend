@@ -11,13 +11,8 @@ const routes = [
         component: Home,
     },
     {
-        path: "/self",
-        name: "Self",
-        component: () => import("../views/self/script.vue"),
-    },
-    {
-        path: "/check",
-        name: "Check",
+        path: "/:id",
+        name: "Chart",
         component: Home,
     },
 ];
