@@ -1,5 +1,15 @@
 <div id="home">
     <main>
-        <Tab />
+        <el-tabs v-model="activeName">
+            <el-tab-pane label="本益比選股" name="first"><PER /></el-tab-pane>
+            <el-tab-pane label="法人買賣超選股" name="second"><Corporations /></el-tab-pane>
+            <el-tab-pane label="交易量+技術選股" name="third"><Skill /></el-tab-pane>
+            <el-tab-pane label="Chart" name="fourth">
+                <Chart3 />
+            </el-tab-pane>
+            <el-tab-pane label="綜合" name="fifth" style="text-align: center"
+                ><img src="../../assets/li.jpg"
+            /></el-tab-pane>
+        </el-tabs>
     </main>
 </div>

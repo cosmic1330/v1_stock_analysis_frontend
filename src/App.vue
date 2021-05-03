@@ -22,7 +22,7 @@
 
 <script>
 import Nav from "./components/nav/script";
-import { Get_Last_Date, Get_All_Stock_Code } from "./api/api.js";
+import { Get_Last_Date, Get_All_Stock_Code, Get_Volume_Avg_Of_Stock } from "./api/api.js";
 export default {
     name: "App",
     mounted: function () {
@@ -40,12 +40,14 @@ export default {
             try {
                 let lastDate = await Get_Last_Date();
                 let codesData = await Get_All_Stock_Code();
+                let volume = await Get_Volume_Avg_Of_Stock();
                 let codes = {};
                 codesData.data.forEach(element => {
                     codes[element.code] = element.name;
                 });
                 this.$store.commit("setCodes", codes);
                 this.$store.commit("setLastDate", lastDate.data.date);
+                this.$store.commit("setVolume", volume.data);
             } catch (error) {
                 console.log(error);
             }

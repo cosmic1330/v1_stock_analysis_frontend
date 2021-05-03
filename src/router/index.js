@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/home/script.vue";
+import Eps from "../views/eps/index.vue";
+
 
 Vue.use(VueRouter);
 
@@ -11,9 +13,9 @@ const routes = [
         component: Home,
     },
     {
-        path: "/:id",
-        name: "Chart",
-        component: Home,
+        path: "/eps",
+        name: "eps",
+        component: Eps,
     },
 ];
 

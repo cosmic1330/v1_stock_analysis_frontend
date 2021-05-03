@@ -3,7 +3,10 @@
 <script>
 // @ is an alias to /src
 import "./style.scss";
-import Tab from "../../components/tab/script";
+import PER from "./per/script";
+import Corporations from "./corporations/script";
+import Skill from "./skill/script";
+import Chart3 from "./3chart/script";
 import Stock from "../../utils/stockClass.js";
 
 export default {
@@ -14,10 +17,15 @@ export default {
         a.getter();
     },
     data() {
-        return {};
+        return {
+            activeName: "third",
+        };
     },
     components: {
-        Tab,
+        PER,
+        Corporations,
+        Skill,
+        Chart3,
     },
     computed: {},
     methods: {

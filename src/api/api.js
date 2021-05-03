@@ -42,14 +42,20 @@ export const Save_MA_to_DB = () => base({ method: "get", url: "/MA/forLoopMA" })
 export const Save_RSI_to_DB = () => base({ method: "get", url: "/RSI/forLoopRSI" });
 
 // 檢查日期是否相符
-export const Check_Stock_With_Date = (code,date) => base({method: "get", url: `/Single/checkSingleStockInDBOfDate`, options: { params: { code: code, date: date } }})
+export const Check_Stock_With_Date = (code, date) =>
+    base({ method: "get", url: `/Single/checkSingleStockInDBOfDate`, options: { params: { code: code, date: date } } });
 
 // 取得股票技術資料
 export const Get_Stock_from_DB = () => base({ method: "get", url: "/Single/getWithinConditionsStock" });
 
 // 取得一個月的股票資料
-export const Get_One_Month_Of_Stock = (code) => base({ method: "get", url: "/Single/getOneMonthOfStock/"+code });
+export const Get_One_Month_Of_Stock = code => base({ method: "get", url: "/Single/getOneMonthOfStock/" + code });
 
+// 取得所有股票平均交易量
+export const Get_Volume_Avg_Of_Stock = () => base({ method: "get", url: "/Single/getAllStockVolumeAvg/" });
+
+// 取得EPS挑選出的股票
+export const Get_Eps_Of_Stock = () => base({ method: "get", url: "/eps/getEpsData" });
 // -------------------------------------------cors--------------------------------------------------
 
 // 取得yahoo股價

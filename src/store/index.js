@@ -6,11 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         codes: {},
-        per:[],
-        trust:[],
-        foreign:[],
-        stock:[],
+        per: [],
+        trust: [],
+        foreign: [],
+        stock: [],
         lastDate: "????-??-??",
+        volume: {},
     },
     getters: {},
     mutations: {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
         },
         setStock(state, data) {
             state.stock = data;
+        },
+        setVolume(state, data) {
+            state.volume = data;
         },
     },
     actions: {},

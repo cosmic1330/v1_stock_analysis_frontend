@@ -13,7 +13,7 @@ import {
     Save_MACD_to_DB,
     Save_MA_to_DB,
     Save_KD_to_DB,
-    Save_RSI_to_DB
+    Save_RSI_to_DB,
 } from "../../api/api.js";
 export default {
     name: "UpdateButton",
@@ -30,7 +30,7 @@ export default {
     methods: {
         isJSON(str) {
             try {
-                return (JSON.parse(str) && !!str);
+                return JSON.parse(str) && !!str;
             } catch (e) {
                 return false;
             }
@@ -70,8 +70,9 @@ export default {
         },
         // 1.更新最新交易日
         async getTradingDate() {
+            this.disabled = true;
             let response = await Save_Trading_Date_to_DB();
-            this.$store.commit("setLastDate", response.data.date);
+            this.$store.commit("setLastDate", response.data.date[response.data.date.length-1]);
             this.openSuccess("成功", "更新最新交易日");
         },
         // 2.更新本益比
@@ -86,17 +87,16 @@ export default {
         },
         // 4.更新股價
         async getStockPrice() {
-            this.disabled = true;
             try {
                 let price = {};
                 let AllPrice = {};
                 let codes = this.$store.state.codes;
                 codes = Object.keys(codes);
                 let date = this.$store.state.lastDate;
-                let tsmc = await Check_Stock_With_Date(2330,date);
-                let delta = await Check_Stock_With_Date(8150,date);
+                let tsmc = await Check_Stock_With_Date(2330, date);
+                let delta = await Check_Stock_With_Date(8150, date);
                 // 判斷用戶端有沒有最新股價
-                if (tsmc.data===true&&delta.data===true) {
+                if (tsmc.data === true && delta.data === true) {
                     return false;
                 } else {
                     for (let i = 0; i < codes.length; i++) {
@@ -105,7 +105,7 @@ export default {
                         response = response.data
                             .replace("jQuery111306382856220483186_1591513211276(", "")
                             .replace(");", "");
-                        if(this.isJSON(response)){
+                        if (this.isJSON(response)) {
                             response = JSON.parse(response).ta;
                             response = response.map(element => {
                                 let obj = {

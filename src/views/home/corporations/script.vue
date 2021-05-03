@@ -11,12 +11,16 @@
             <el-table :data="trust" style="width: 100%">
                 <el-table-column label="股票代號" width="100">
                     <template slot-scope="scope">
-                        <p><a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{scope.row.code}}</a></p>
+                        <p>
+                            <a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{ scope.row.code }}</a>
+                        </p>
                     </template>
                 </el-table-column>
                 <el-table-column label="名稱" width="100">
                     <template slot-scope="scope">
-                        <p><a :href="filterYahooUrl(scope.row.code)" target="_blank">{{scope.row.name}}</a></p>
+                        <p>
+                            <a :href="filterYahooUrl(scope.row.code)" target="_blank">{{ scope.row.name }}</a>
+                        </p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="Ttoday" label="投信今日買超"> </el-table-column>
@@ -32,12 +36,16 @@
             <el-table :data="foreign" style="width: 100%">
                 <el-table-column label="股票代號" width="100">
                     <template slot-scope="scope">
-                        <p><a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{scope.row.code}}</a></p>
+                        <p>
+                            <a :href="filterPchomeUrl(scope.row.code)" target="_blank">{{ scope.row.code }}</a>
+                        </p>
                     </template>
                 </el-table-column>
                 <el-table-column label="名稱" width="100">
                     <template slot-scope="scope">
-                        <p><a :href="filterYahooUrl(scope.row.code)" target="_blank">{{scope.row.name}}</a></p>
+                        <p>
+                            <a :href="filterYahooUrl(scope.row.code)" target="_blank">{{ scope.row.name }}</a>
+                        </p>
                     </template>
                 </el-table-column>
                 <el-table-column prop="Ftoday" label="外資今日買超"> </el-table-column>
@@ -79,14 +87,14 @@ export default {
                 })
                 .catch(error => console.log(error.response));
         },
-        filterPchomeUrl(code){
-            let str = "https://pchome.megatime.com.tw/stock/sto0/ock1/sid"+code+".html";
+        filterPchomeUrl(code) {
+            let str = "https://pchome.megatime.com.tw/stock/sto0/ock1/sid" + code + ".html";
             return str;
         },
-        filterYahooUrl(code){
-            let str = "https://tw.stock.yahoo.com/q/ta?s="+code;
+        filterYahooUrl(code) {
+            let str = "https://tw.stock.yahoo.com/q/ta?s=" + code;
             return str;
-        }
+        },
     },
 };
 </script>
