@@ -56,6 +56,10 @@ export const Get_Volume_Avg_Of_Stock = () => base({ method: "get", url: "/Single
 
 // 取得EPS挑選出的股票
 export const Get_Eps_Of_Stock = () => base({ method: "get", url: "/eps/getEpsData" });
+
+// 完整步驟選股
+export const Get_Steps_Stock = () => base({ method: "get", url: "/step/run" });
+
 // -------------------------------------------cors--------------------------------------------------
 
 // 取得yahoo股價
