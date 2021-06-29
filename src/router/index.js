@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/home/script.vue";
-import Eps from "../views/eps/index.vue";
+import Step from "../views/step/index.vue";
+import Lower from "../views/lower/index.vue";
+import Williams from "../views/williams/index.vue";
 
 
 Vue.use(VueRouter);
@@ -13,9 +15,19 @@ const routes = [
         component: Home,
     },
     {
-        path: "/eps",
-        name: "eps",
-        component: Eps,
+        path: "/step",
+        name: "step",
+        component: Step,
+    },
+    {
+        path: "/lower",
+        name: "lower",
+        component: Lower,
+    },
+    {
+        path: "/williams",
+        name: "williams",
+        component: Williams,
     },
 ];
 

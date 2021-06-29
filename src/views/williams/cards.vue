@@ -9,27 +9,28 @@
             </el-table-column>
             <el-table-column type="data" label="名稱" width="130">
                 <template slot-scope="scope">
-                    <a :href="filterYahooUrl(scope.row)" target="_blank">{{ stocks[scope.row][stocks[scope.row].length-1]['name'] }}</a>
+                    <a :href="filterYahooUrl(scope.row)" target="_blank">{{ stocks[scope.row]['name'] }}</a>
                 </template>
             </el-table-column>
             <el-table-column type="data" label="收盤價" width="130">
                 <template slot-scope="scope">
-                    {{ stocks[scope.row][stocks[scope.row].length-1]['c'] }}
-                </template>
-            </el-table-column>
-            <el-table-column type="data" label="交易量" width="130">
-                <template slot-scope="scope">
-                    <p>交易量： {{ stocks[scope.row][stocks[scope.row].length-1]['v'] }}</p>
-                    <p>平均交易量： {{ stocks[scope.row][stocks[scope.row].length-1]['avgVolume'] }}</p>
+                    {{ stocks[scope.row]['c'] }}
                 </template>
             </el-table-column>
             <el-table-column type="data" label="黃金分割率" width="130">
                 <template slot-scope="scope">
-                    <p>超強勢：{{ stocks[scope.row][stocks[scope.row].length-1]['goldSection']['超強勢'] }}</p>
-                    <p>強勢：{{ stocks[scope.row][stocks[scope.row].length-1]['goldSection']['強勢'] }}</p>
-                    <p>中度：{{ stocks[scope.row][stocks[scope.row].length-1]['goldSection']['中度'] }}</p>
-                    <p>弱勢：{{ stocks[scope.row][stocks[scope.row].length-1]['goldSection']['弱勢'] }}</p>
-                    <p>超弱勢：{{ stocks[scope.row][stocks[scope.row].length-1]['goldSection']['超弱勢'] }}</p>
+                    <p>超強勢：{{ stocks[scope.row]['goldSection']['超強勢'] }}</p>
+                    <p>強勢：{{ stocks[scope.row]['goldSection']['強勢'] }}</p>
+                    <p>中度：{{ stocks[scope.row]['goldSection']['中度'] }}</p>
+                    <p>弱勢：{{ stocks[scope.row]['goldSection']['弱勢'] }}</p>
+                    <p>超弱勢：{{ stocks[scope.row]['goldSection']['超弱勢'] }}</p>
+                </template>
+            </el-table-column>
+            <el-table-column label="三關價" width="100">
+                <template slot-scope="scope">
+                    <p>上關: {{ customsPrices(stocks[scope.row], "UP") }}</p>
+                    <p>中關: {{ customsPrices(stocks[scope.row], "Mid") }}</p>
+                    <p>下關: {{ customsPrices(stocks[scope.row], "Down") }}</p>
                 </template>
             </el-table-column>
             <el-table-column label="主力動向">
@@ -42,7 +43,7 @@
             <el-table-column label="大戶籌碼">
                 <template slot-scope="scope">
                     <p>
-                        <a :href="filterMainTrendUrl(scope.row)" target="_blank">前往</a>
+                        <a :href="filterMajorInvestorsUrl(scope.row)" target="_blank">前往</a>
                     </p>
                 </template>
             </el-table-column>
@@ -55,7 +56,7 @@
 </style>
 
 <script>
-import { Get_Steps_Stock  } from "../../api/api.js";
+import { Get_Williams_Stock  } from "../../api/api.js";
 export default {
     name: "Cards",
     mounted: function () {
@@ -72,7 +73,7 @@ export default {
     methods: {
         async getData() {
             try {
-                let response = await Get_Steps_Stock();
+                let response = await Get_Williams_Stock();
                 this.stocks = response.data;
                 console.log(Object.keys(response.data));
                 this.handleLoading();
@@ -95,6 +96,27 @@ export default {
         filterYahooUrl(code) {
             let str = "https://tw.stock.yahoo.com/q/ta?s=" + code;
             return str;
+        },
+        customsPrices(data, type) {
+            let response = null;
+            switch (type) {
+                case "UP":
+                    response =
+                        parseInt(data["l"]) +
+                        (parseInt(data["h"]) - parseInt(data["l"])) * 1.382;
+                    break;
+                case "Mid":
+                    response = (parseInt(data["h"]) + parseInt(data["l"])) * 0.5;
+                    break;
+                case "Down":
+                    response =
+                        parseInt(data["h"]) -
+                        (parseInt(data["h"]) - parseInt(data["l"])) * 1.382;
+                    break;
+                default:
+                    break;
+            }
+            return Math.round(response * 100) / 100;
         },
     },
 };

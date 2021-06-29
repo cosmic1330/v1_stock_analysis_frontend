@@ -12,7 +12,7 @@
 import Cards from './cards';
 import Loading from './loading';
 export default {
-    name: "Eps",
+    name: "Lower",
     mounted: function () {
     },
     components: {

@@ -60,6 +60,12 @@ export const Get_Eps_Of_Stock = () => base({ method: "get", url: "/eps/getEpsDat
 // 完整步驟選股
 export const Get_Steps_Stock = () => base({ method: "get", url: "/step/run" });
 
+// 主力選股
+export const Get_Main_Stock = () => base({ method: "get", url: "/stock/getMainBuyStock" });
+
+// 威廉選股
+export const Get_Williams_Stock = () => base({ method: "get", url: "/stock/getWilliamsStock" });
+
 // -------------------------------------------cors--------------------------------------------------
 
 // 取得yahoo股價
